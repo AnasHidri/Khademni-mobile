@@ -17,7 +17,7 @@ import com.codename1.ui.layouts.GridLayout;
 import com.codename1.ui.table.TableLayout;
 import com.codename1.ui.util.Resources;
 import com.codename1.uikit.materialscreens.ProfileForm;
-import entity.Ligne_commande;
+import com.mycompany.entities.Ligne_commande;
 import java.util.ArrayList;
 
 /**

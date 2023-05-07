@@ -13,7 +13,7 @@ import com.codename1.io.NetworkManager;
 import com.codename1.ui.List;
 import com.codename1.ui.events.ActionListener;
 import com.mycompany.entities.User;
-import entity.Ligne_commande;
+import com.mycompany.entities.Ligne_commande;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;

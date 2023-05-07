@@ -14,7 +14,7 @@ import com.codename1.uikit.materialscreens.SideMenuBaseForm;
 import com.codename1.ui.table.TableLayout;
 import com.codename1.ui.util.Resources;
 import com.codename1.uikit.materialscreens.ProfileForm;
-import entity.Historique;
+import com.mycompany.entities.Historique;
 import java.util.ArrayList;
 
 /**

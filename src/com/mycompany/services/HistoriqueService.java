@@ -11,8 +11,8 @@ import com.codename1.io.JSONParser;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.events.ActionListener;
-import entity.Historique;
-import entity.Ligne_commande;
+import com.mycompany.entities.Historique;
+import com.mycompany.entities.Ligne_commande;
 import java.io.IOException;
 
 import java.util.ArrayList;
