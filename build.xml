@@ -619,4 +619,5 @@
         <property value="JavaSE.jar:lib/CLDC11.jar:lib/lib/impl/cls" name="javac.classpath"/>        
     </target>
     <target depends="pre-javadoc,init,-javadoc-build,-javadoc-browse" description="Build Javadoc." name="javadoc"/>
+
 </project>
