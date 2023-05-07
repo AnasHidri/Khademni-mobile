@@ -12,6 +12,7 @@ import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.List;
 import com.codename1.ui.events.ActionListener;
+import com.mycompany.entities.User;
 import entity.Ligne_commande;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -68,8 +69,10 @@ public class PanierService {
         
         
           public ArrayList<Ligne_commande> getAllLigne() {
+              
+               User u = User.getCurrent_User();
     
-        String url = Statics.BASE_URL + "ligne/commandeapi/AllLigneUser";
+        String url = Statics.BASE_URL + "/ligne/commandeapi/AllLigneUser/"+u.getIdUser();
         req.setUrl(url);
         req.setPost(false);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -86,7 +89,7 @@ public class PanierService {
           
           public boolean deleteCommande(int id_ligne_commande) {
               System.out.println(id_ligne_commande);
-    String url = Statics.BASE_URL + "ligne/commandeapi/removeapi/" + id_ligne_commande;
+    String url = Statics.BASE_URL + "/ligne/commandeapi/removeapi/" + id_ligne_commande;
     ConnectionRequest req = new ConnectionRequest(url);
 
     req.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -109,7 +112,8 @@ public class PanierService {
           
            public boolean PayerCommande(int id_ligne_commande) {
               System.out.println(id_ligne_commande);
-    String url = Statics.BASE_URL + "ligne/commandeapi/payeroneAPI/" + id_ligne_commande;
+               User u = User.getCurrent_User();
+    String url = Statics.BASE_URL + "/ligne/commandeapi/payeroneAPI/" + id_ligne_commande+"/iduser/"+u.getIdUser();
     ConnectionRequest req = new ConnectionRequest(url);
 
     req.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -130,8 +134,8 @@ public class PanierService {
           
     
         public   ArrayList<Ligne_commande> FiltrerCommande (int prixmin, int prixmax){
-            
-              String url = Statics.BASE_URL + "ligne/commandeapi/ligneAPI/filtrer/"+prixmin+"/"+prixmax;
+             User u = User.getCurrent_User();
+              String url = Statics.BASE_URL + "/ligne/commandeapi/ligneAPI/filtrer/"+prixmin+"/"+prixmax+"/iduser/"+u.getIdUser();
         req.setUrl(url);
         req.setPost(false);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
