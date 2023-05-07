@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<component type="Form" name="GUI 1" cloudDestinationProperty="GUI 1" layout="BoxLayout" boxLayoutAxis="Y" title="Details" >
+  <component type="Container" name="Container" cloudDestinationProperty="Container" layout="TableLayout" tableLayoutRows="6" tableLayoutColumns="2" >
+    <component type="Label" name="Label2" cloudDestinationProperty="Label2" text="event" >
+    </component>
+    <component type="Container" name="Container2" cloudDestinationProperty="Container2" >
+      <component type="ComboBox" name="occupation1" cloudDestinationProperty="occupation" hint="g" >
+        <stringItem value="Programmer" />
+        <stringItem value="Construction Worker" />
+        <stringItem value="Some other job? Seriously?" />
+        <stringItem value="Drawing blanks here..." />
+      </component>
+    </component>
+    <component type="Label" name="Label4" cloudDestinationProperty="Label4" text="price" >
+      <layoutConstraint row="-1" column="-1" height="-1" width="-1" align="-1" spanHorizontal="1" valign="0" spanVertical="1" />
+    </component>
+    <component type="Container" name="Container3" cloudDestinationProperty="Container3" layout="BoxLayout" boxLayoutAxis="Y" >
+      <component type="CheckBox" name="organized" cloudDestinationProperty="organized" text="35" >
+      </component>
+      <component type="CheckBox" name="skilled" cloudDestinationProperty="skilled" text="55" >
+      </component>
+      <component type="CheckBox" name="communicative" cloudDestinationProperty="communicative" text="75" >
+      </component>
+    </component>
+  </component>
+  <component type="Container" name="Container1" cloudDestinationProperty="Container1" layout="FlowLayout" flowLayoutFillRows="false" flowLayoutAlign="4" flowLayoutValign="4" >
+    <component type="Label" name="Label41" cloudDestinationProperty="Label4" text="mode paiememnt" >
+    </component>
+    <component type="Container" name="Container11" cloudDestinationProperty="Container1" layout="FlowLayout" flowLayoutFillRows="false" flowLayoutAlign="4" flowLayoutValign="4" >
+    </component>
+    <component type="ComboBox" name="occupation" cloudDestinationProperty="occupation" hint="g" >
+      <stringItem value="Programmer" />
+      <stringItem value="Construction Worker" />
+      <stringItem value="Some other job? Seriously?" />
+      <stringItem value="Drawing blanks here..." />
+    </component>
+  </component>
+  <component type="Button" name="submit" cloudDestinationProperty="submit" text="Submit" >
+  </component>
+  <component type="Button" name="cancel" cloudDestinationProperty="cancel" text="Cancel" >
+  </component>
+</component>

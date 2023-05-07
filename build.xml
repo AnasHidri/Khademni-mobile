@@ -5,8 +5,8 @@
     To learn more about Codename One go to https://www.codenameone.com/
     -->
         
-    <project name="Khademni" default="default" basedir=".">
-    <description>Builds, tests, and runs the project Khademni.</description>
+    <project name="KhademniM" default="default" basedir=".">
+    <description>Builds, tests, and runs the project KhademniM.</description>
     <import file="nbproject/build-impl.xml"/>
     <property file="codenameone_settings.properties"/>
     <property name="automated" value="false" />
