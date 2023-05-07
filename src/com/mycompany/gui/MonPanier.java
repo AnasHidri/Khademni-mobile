@@ -2,19 +2,21 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.myapp;
+package com.mycompany.gui;
 
-import Service.PanierService;
+import com.mycompany.services.PanierService;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
 import com.codename1.ui.layouts.BorderLayout;
+import com.codename1.uikit.materialscreens.SideMenuBaseForm;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.GridLayout;
 import com.codename1.ui.table.TableLayout;
 import com.codename1.ui.util.Resources;
+import com.codename1.uikit.materialscreens.ProfileForm;
 import entity.Ligne_commande;
 import java.util.ArrayList;
 
@@ -26,7 +28,7 @@ public class MonPanier extends SideMenuBaseForm {
 
     @Override
     protected void showOtherForm(Resources res) {
-            new StatsForm(res).show();
+        new ProfileForm(res).show();
     }
     
  public MonPanier(Resources res) {
