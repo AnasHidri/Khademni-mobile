@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import com.mycompany.entities.Evenement;
+import com.mycompany.entities.User;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -51,7 +52,8 @@ public class ParticipationService {
     }
      
      public void ajoutParticipation(int id_evenement) {
-    String url = Statics.BASE_URL + "/participationJson/new/" + id_evenement;
+          User u = User.getCurrent_User();
+    String url = Statics.BASE_URL + "/participationJson/new/" + id_evenement+"/iduser/"+u.getIdUser();
     req.setUrl(url);
     req.addResponseListener((e) -> {
         String str = new String(req.getResponseData());
@@ -61,7 +63,8 @@ public class ParticipationService {
 }
      
     public boolean annulerParticipation(int id_evenement) {
-    String url = Statics.BASE_URL + "/participationJson/delete/" + id_evenement;
+        User u = User.getCurrent_User();
+    String url = Statics.BASE_URL + "/participationJson/delete/" + id_evenement+"/iduser/"+u.getIdUser();
     req.setUrl(url);
     boolean[] resultOk = new boolean[1];
     req.addResponseListener(e -> {
@@ -85,7 +88,8 @@ public class ParticipationService {
     
    public ArrayList<Evenement> mesParticipations(int id_user) {
     ArrayList<Evenement> result = new ArrayList<>();
-    String url = Statics.BASE_URL + "/participationJson/user/participations/" + id_user;
+     User u = User.getCurrent_User();
+    String url = Statics.BASE_URL + "/participationJson/user/participations/" +u.getIdUser();
     
     req.setUrl(url);
 

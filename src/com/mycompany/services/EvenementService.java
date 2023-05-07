@@ -13,6 +13,7 @@ import com.codename1.l10n.SimpleDateFormat;
 
 import com.codename1.ui.events.ActionListener;
 import com.mycompany.entities.Evenement;
+import com.mycompany.entities.User;
 import com.mycompany.statics.Statics;
 import java.io.ByteArrayInputStream;
 import java.io.InputStreamReader;
@@ -57,13 +58,14 @@ public class EvenementService {
     }
      
      public void ajoutEvenement(Evenement evenement) {
+           User u = User.getCurrent_User();
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     String dateDebutStr = dateFormat.format(evenement.getDate_debut());
     String dateFinStr = dateFormat.format(evenement.getDate_fin());
     
     String url = Statics.BASE_URL + "/evenementJson/new?dateDebut=" + dateDebutStr + "&dateFin=" + dateFinStr
             + "&titre=" + evenement.getTitre() + "&description=" + evenement.getDescription() + "&nom_societe="
-            + evenement.getNom_societe() + "&lieu=" + evenement.getLieu();
+            + evenement.getNom_societe() + "&lieu=" + evenement.getLieu()+"&iduser="+u.getIdUser();
 
     req.setUrl(url);
     req.addResponseListener((e) -> {
