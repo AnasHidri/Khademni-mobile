@@ -63,6 +63,7 @@ participationButton.addActionListener(e -> {
                 dig.dispose();
                  }
     ParticipationService.getInstance().ajoutParticipation(evenement.getId_evenement());
+    new MesParticipations(res).show();
 });
 this.add(participationButton);
 

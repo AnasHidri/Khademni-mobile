@@ -139,8 +139,7 @@ public class MesParticipations extends Form{
                InfiniteProgress ip = new InfiniteProgress();
         final Dialog ipDlg = ip.showInifiniteBlocking();
         
-          MesParticipations a = new MesParticipations(res);
-            a.show();
+          new ListeEvenement(res).show();
             refreshTheme();
         });
         
