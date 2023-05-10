@@ -54,8 +54,8 @@ public void addElement(Candidature candidature) {
     System.out.println("hdhdg"+id_candidature);
 String etat = candidature.getEtat();
 Label etatLabel = new Label("Etat : " + etat);
-int id_offre = candidature.getId_offre();
-    Label id_offreLabel = new Label("Id_offre : " + id_offre);
+//int id_offre = candidature.getId_offre();
+  //  Label id_offreLabel = new Label("Id_offre : " + id_offre);
     System.out.println("hdhdg"+id_candidature);
     Button AccepterButton = new Button("Accepter");
     AccepterButton.addActionListener((evt) -> {
@@ -94,7 +94,7 @@ int id_offre = candidature.getId_offre();
     Button DetailsButton = new Button("Details");
         DetailsButton.addActionListener((evt) -> {
     
-        String url = Statics.BASE_URL +"/candidatureApiRest/allApiRest/"+id_offre;
+        String url = Statics.BASE_URL +"/candidatureApiRest/allApiRest/";
         ConnectionRequest request = new ConnectionRequest();
         request.setUrl(url);
 
@@ -110,7 +110,6 @@ int id_offre = candidature.getId_offre();
     Container container = new Container(new GridLayout(3, 1));
     container.add(id_candidatureLabel);
     container.add(etatLabel);
-    container.add(id_offreLabel);
 
     container.add(BoxLayout.encloseX( AccepterButton,RefuserButton));
 

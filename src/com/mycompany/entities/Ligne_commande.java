@@ -17,6 +17,15 @@ public class Ligne_commande {
     private int prix;
     private String titre;
     private int status;
+    private int count;
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
 
     public int getStatus() {
         return status;
@@ -42,6 +51,12 @@ public class Ligne_commande {
         this.titre = titre;
         this.status = status;
     }
+
+    public Ligne_commande(String titre, int count) {
+        this.titre = titre;
+        this.count = count;
+    }
+    
     
 
     public String getTitre() {
@@ -91,9 +106,10 @@ public class Ligne_commande {
 
     @Override
     public String toString() {
-        return "Ligne_commande{" + "id_formation=" + id_formation + ", prix=" + prix + ", titre=" + titre + '}';
+        return "Ligne_commande{" + "id_ligne_commande=" + id_ligne_commande + ", id_panier=" + id_panier + ", id_formation=" + id_formation + ", prix=" + prix + ", titre=" + titre + ", status=" + status + ", count=" + count + '}';
     }
 
+    
   
   
 

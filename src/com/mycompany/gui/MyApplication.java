@@ -51,7 +51,7 @@ public class MyApplication {
             current.show();
             return;
         }
-        new MonPanier(theme).show();
+
     }
 
     public void stop() {

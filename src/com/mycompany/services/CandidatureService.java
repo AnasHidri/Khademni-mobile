@@ -65,8 +65,8 @@ public class CandidatureService {
                     c.setEtat(obj.get("etat").toString());
                 
                 }
-                  float id_offre = Float.parseFloat(obj.get("idOffre").toString());
-                   c.setId_offre((int) id_offre);
+                //  float id_offre = Float.parseFloat(obj.get("idOffre").toString());
+                  // c.setId_offre((int) id_offre);
 
           
           /*    String titre = (String)((Map<String, Object>) obj.get("idOffre")).get("titre");
@@ -108,7 +108,8 @@ String mail = (String)((Map<String, Object>) obj.get("idUser")).get("mail");
  
 
     public ArrayList<Candidature> getMesCandidatures() {
-        String url = Statics.BASE_URL + "/candidatureApiRest/clientApiRest/MesCandidatures";
+          User u = User.getCurrent_User();
+        String url = Statics.BASE_URL + "/candidatureApiRest/clientApiRest/MesCandidatures/"+u.getIdUser();
         req.setUrl(url);
         req.setPost(false);
         req.addResponseListener(new ActionListener<NetworkEvent>() {

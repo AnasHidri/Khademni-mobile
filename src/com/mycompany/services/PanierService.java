@@ -68,6 +68,29 @@ public class PanierService {
 }
         
         
+        
+     public ArrayList<Ligne_commande> parseString(String jsonText) {
+    try {
+        ArrayList<Ligne_commande> ligne_commandes = new ArrayList<>();
+        JSONParser lignecommande = new JSONParser();
+        Map<String, Object> ligneListJson = lignecommande.parseJSON(new CharArrayReader(jsonText.toCharArray()));
+        java.util.List<Map<String, Object>> list = (java.util.List<Map<String, Object>>) ligneListJson.get("root");
+        for (Map<String, Object> obj : list) {  
+            Ligne_commande ligne = new Ligne_commande();
+            ligne.setTitre(obj.get("titre").toString());
+                float count = Float.parseFloat(obj.get("count").toString());
+            ligne.setCount((int) count);
+            ligne_commandes.add(ligne);
+        }
+        return ligne_commandes;
+    } catch (IOException ex) {
+        System.out.println(ex.getMessage());
+        return null;
+    }
+}
+   
+        
+        
           public ArrayList<Ligne_commande> getAllLigne() {
               
                User u = User.getCurrent_User();
@@ -142,6 +165,24 @@ public class PanierService {
             @Override
             public void actionPerformed(NetworkEvent evt) {
                 lignes = parseLigne(new String(req.getResponseData()));
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return lignes;
+        } 
+        
+        
+        
+        public   ArrayList<Ligne_commande> StatistiqueCommande (){
+           
+              String url = Statics.BASE_URL + "/ligne/commandeapi/ligne/statapi";
+        req.setUrl(url);
+        req.setPost(false);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                 lignes = parseString(new String(req.getResponseData()));
                 req.removeResponseListener(this);
             }
         });
