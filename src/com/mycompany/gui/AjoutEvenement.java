@@ -5,6 +5,7 @@
  */
 package com.mycompany.gui;
 
+
 import com.codename1.components.InfiniteProgress;
 import com.codename1.components.ScaleImageLabel;
 import com.codename1.components.SpanLabel;
@@ -105,7 +106,7 @@ public class AjoutEvenement extends Form {
                     //appelle methode ajouterReclamation mt3 service Reclamation bch nzido données ta3na fi base 
                     EvenementService.getInstance().ajoutEvenement(ev);
 
-                new ListeEvenement(res).show();
+                new ListeEvenementEmp(res).show();
                     
                     
                     refreshTheme();//Actualisation

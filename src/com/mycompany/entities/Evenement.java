@@ -147,4 +147,8 @@ public class Evenement {
     public String toString() {
         return "Evenement{" + "id_evenement=" + id_evenement + ", id_user=" + id_user + ", date_debut=" + date_debut + ", date_fin=" + date_fin + ", titre=" + titre + ", description=" + description + ", nom_societe=" + nom_societe + ", lieu=" + lieu + '}';
     }
+    
+    public boolean contains(String query){
+        return titre.contains(query);
+    }
 }

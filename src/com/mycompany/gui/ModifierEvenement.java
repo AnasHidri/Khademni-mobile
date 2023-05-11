@@ -4,6 +4,7 @@
  */
 package com.mycompany.gui;
 
+
 import com.codename1.components.FloatingHint;
 import com.codename1.ui.Button;
 import com.codename1.ui.ComboBox;
@@ -98,12 +99,12 @@ r.setDate_fin(dateFormat.format(dateFin.getDate()));*/
        //appel fonction modfier reclamation men service
        
        if(EvenementService.getInstance().modifierEvenement(r)) { // if true
-           new ListeEvenement(res).show();
+           new ListeEvenementCl(res).show();
        }
         });
        Button btnAnnuler = new Button("Annuler");
        btnAnnuler.addActionListener(e -> {
-           new ListeEvenement(res).show();
+           new ListeEvenementCl(res).show();
        });
        
                Label l1 = new Label();

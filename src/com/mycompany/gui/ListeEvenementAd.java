@@ -26,6 +26,7 @@ import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.RadioButton;
 import com.codename1.ui.Tabs;
+import com.codename1.ui.TextField;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.URLImage;
 import com.codename1.ui.layouts.BorderLayout;
@@ -37,25 +38,30 @@ import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
 import com.mycompany.entities.Evenement;
 import com.mycompany.services.EvenementService;
-import com.mycompany.services.ParticipationService;
 import java.util.ArrayList;
 
 /**
  *
  * @author user
  */
-public class MesParticipations extends Form{
+public class ListeEvenementAd extends Form{
     Form current;
-     private ParticipationService participationService;
-
-    public MesParticipations(Resources res) {
-     super("Mes Participations",BoxLayout.y()); 
+    public ListeEvenementAd(Resources res ) {
+          super("Evenement",BoxLayout.y()); 
         Toolbar tb = new Toolbar(true);
         current = this ;
         setToolbar(tb);
         getTitleArea().setUIID("Container");
         setTitle("");
         getContentPane().setScrollVisible(false);
+        TextField searchField = new TextField("", "Search");
+    searchField.setUIID("DefaultTextField");
+    searchField.addDataChangeListener((i, ii) -> {
+        String text = searchField.getText();
+        filterList(text); // Filter list based on search query
+    });
+    tb.setTitleComponent(searchField);
+
         
         
         tb.addSearchCommand(e ->  {
@@ -140,7 +146,8 @@ public class MesParticipations extends Form{
                InfiniteProgress ip = new InfiniteProgress();
         final Dialog ipDlg = ip.showInifiniteBlocking();
         
-          new ListeEvenementCl(res).show();
+          ListeEvenementAd a = new ListeEvenementAd(res);
+            a.show();
             refreshTheme();
         });
         
@@ -163,15 +170,18 @@ public class MesParticipations extends Form{
             refreshTheme();
               updateArrowPosition(mesParticipations, arrow);
         });
- /*stats.addActionListener((e) -> {
-               InfiniteProgress ip = new InfiniteProgress();
-        final Dialog ipDlg = ip.showInifiniteBlocking();
+ stats.addActionListener((e) -> {
+    InfiniteProgress ip = new InfiniteProgress();
+    final Dialog ipDlg = ip.showInifiniteBlocking();
     
-         new StatistiquePieForm(res).show();
-           
-            refreshTheme();
-              updateArrowPosition(stats, arrow);
-        });*/
+    // Créer une instance de StatLike et appeler showTopEventsByLikes()
+    StatLike statLike = new StatLike();
+    Label myLabel = new Label("");
+statLike.showTopEventsByLikes(myLabel);
+
+    // Masquer le dialogue de chargement
+    ipDlg.dispose();
+});
         add(LayeredLayout.encloseIn(
                 GridLayout.encloseIn(4, mesListes, stats, add,mesParticipations),
                 FlowLayout.encloseBottom(arrow)
@@ -194,10 +204,9 @@ public class MesParticipations extends Form{
         
       
         //Appel affichage methode
-        int id_user = 23;
-ArrayList<Evenement> list = ParticipationService.getInstance().mesParticipations(id_user);
+        ArrayList<Evenement>list = EvenementService.getInstance().affichageEvenementAd();
         
-       for(Evenement rec : list ) {
+        for(Evenement rec : list ) {
              String urlImage ="activite.png";//image statique pour le moment ba3d taw fi  videos jayin nwarikom image 
             
              Image placeHolder = Image.createImage(120, 90);
@@ -293,8 +302,8 @@ ArrayList<Evenement> list = ParticipationService.getInstance().mesParticipations
         //kif nzidouh  ly3endo date mathbih fi codenamone y3adih string w y5alih f symfony dateTime w ytab3ni cha3mlt taw yjih
     //   
     
-    //Label dateDebuttxt = new Label("date deb : "+rec.getDate_debut(),"NewsTopLine2");
-    //Label dateFintxt = new Label("date fin : "+rec.getDate_fin(),"NewsTopLine2");
+    Label dateDebuttxt = new Label("date deb : "+rec.getDate_debut(),"NewsTopLine2");
+    Label dateFintxt = new Label("date fin : "+rec.getDate_fin(),"NewsTopLine2");
         Label nomevtxt = new Label("Titre evenement : "+rec.getTitre(),"NewsTopLine2");
         Label descriptiontxt = new Label("Description : "+rec.getDescription(),"NewsTopLine2");
         Label nom_socTxt = new Label("Societe Organisatrice : "+rec.getNom_societe(),"NewsTopLine2" );
@@ -308,7 +317,7 @@ ArrayList<Evenement> list = ParticipationService.getInstance().mesParticipations
         
      
         //supprimer button
-    /*    Label lSupprimer = new Label(" ");
+        Label lSupprimer = new Label(" ");
         lSupprimer.setUIID("NewsTopLine");
         Style supprmierStyle = new Style(lSupprimer.getUnselectedStyle());
         supprmierStyle.setFgColor(0xf21f1f);
@@ -322,7 +331,7 @@ ArrayList<Evenement> list = ParticipationService.getInstance().mesParticipations
             
             Dialog dig = new Dialog("Suppression");
             
-            if(dig.show("Suppression","Vous voulez supprimer cette reservation ?","Annuler","Oui")) {
+            if(dig.show("Suppression","Vous voulez supprimer cet evenement ?","Annuler","Oui")) {
                 dig.dispose();
             }
             else {
@@ -330,7 +339,7 @@ ArrayList<Evenement> list = ParticipationService.getInstance().mesParticipations
                  }
                 //n3ayto l suuprimer men service Reclamation
                 if(EvenementService.getInstance().deleteEvenement(rec.getId_evenement())) {
-                    new ListeEvenement(res).show();
+                    new ListeEvenementCl(res).show();
                     refreshTheme(); 
                 }
            
@@ -361,7 +370,7 @@ ArrayList<Evenement> list = ParticipationService.getInstance().mesParticipations
         lModifier.addPointerPressedListener(l -> {
          //   System.out.println("hello update");
             new ModifierEvenement(res,rec).show();
-        });*/
+        });
         
         
        
@@ -385,9 +394,9 @@ lDetails.addPointerPressedListener(l -> {
                 BoxLayout.encloseX(nomevtxt),
                 BoxLayout.encloseX(descriptiontxt),
                 BoxLayout.encloseX(nom_socTxt),
-                //BoxLayout.encloseX(dateDebuttxt),
-                //BoxLayout.encloseX(dateFintxt),
-                BoxLayout.encloseX(lieuTxt,/*lModifier,lSupprimer,*/lDetails)));
+                BoxLayout.encloseX(dateDebuttxt),
+                BoxLayout.encloseX(dateFintxt),
+                BoxLayout.encloseX(lieuTxt,lModifier,lSupprimer,lDetails)));
         
         
         
@@ -400,6 +409,32 @@ lDetails.addPointerPressedListener(l -> {
         separator.setShowEvenIfBlank(true);
         return separator;
     }
-    
+    private void filterList(String text) {
+
+        ArrayList<Evenement> list = EvenementService.getInstance().affichageEvenementAd();
+
+
+    removeAll();
+    for (Evenement e : list) {
+        if (e.contains(text)) {
+            String urlImage = "activite.png";
+            Image placeHolder = Image.createImage(120, 90);
+            EncodedImage enc =  EncodedImage.createFromImage(placeHolder,false);
+            URLImage urlim = URLImage.createToStorage(enc, urlImage, urlImage, URLImage.RESIZE_SCALE);
+            Resources rec = null;
+           
+            addButton(urlim, e, rec);
+            ScaleImageLabel image = new ScaleImageLabel(urlim);
+            Container containerImg = new Container();
+            image.setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);
+        }
     }
+    revalidate();
+}
+    
+
+    }
+    
+    
+    
 

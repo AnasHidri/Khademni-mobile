@@ -19,6 +19,7 @@
             <file>file:/D:/KRAYA/1ercycleing/pidev/khademni-mobile/src/com/mycompany/gui/DetailsEmpForm.java</file>
             <file>file:/D:/KRAYA/1ercycleing/pidev/khademni-mobile/src/com/mycompany/gui/DetailsClientForm.java</file>
             <file>file:/D:/KRAYA/1ercycleing/pidev/khademni-mobile/src/com/mycompany/gui/MonPanier.java</file>
+            <file>file:/D:/KRAYA/1ercycleing/pidev/khademni-mobile/src/com/mycompany/gui/BaseForm.java</file>
             <file>file:/D:/KRAYA/1ercycleing/pidev/khademni-mobile/src/com/mycompany/services/CandidatureService.java</file>
             <file>file:/D:/KRAYA/1ercycleing/pidev/khademni-mobile/src/com/mycompany/gui/SideMenuBaseFormUsers.java</file>
             <file>file:/D:/KRAYA/1ercycleing/pidev/khademni-mobile/src/com/mycompany/gui/ListOffreFormAdmin.java</file>
@@ -29,8 +30,14 @@
             <file>file:/D:/KRAYA/1ercycleing/pidev/khademni-mobile/src/com/mycompany/services/EvenementService.java</file>
             <file>file:/D:/KRAYA/1ercycleing/pidev/khademni-mobile/src/com/mycompany/entities/Participation.java</file>
             <file>file:/D:/KRAYA/1ercycleing/pidev/khademni-mobile/src/com/mycompany/gui/ListOffreForm.java</file>
+            <file>file:/D:/KRAYA/1ercycleing/pidev/khademni-mobile/src/com/mycompany/gui/SignupForm.java</file>
+            <file>file:/D:/KRAYA/1ercycleing/pidev/khademni-mobile/src/com/mycompany/gui/WalkthruForm.java</file>
+            <file>file:/D:/KRAYA/1ercycleing/pidev/khademni-mobile/src/com/mycompany/gui/LoginForm.java</file>
+            <file>file:/D:/KRAYA/1ercycleing/pidev/khademni-mobile/src/com/mycompany/gui/SideCommand.java</file>
             <file>file:/D:/KRAYA/1ercycleing/pidev/khademni-mobile/src/com/mycompany/services/UtilisateurService.java</file>
             <file>file:/D:/KRAYA/1ercycleing/pidev/khademni-mobile/src/com/mycompany/entities/User.java</file>
+            <file>file:/D:/KRAYA/1ercycleing/pidev/khademni-mobile/src/com/mycompany/gui/StatistiquePanier.java</file>
+            <file>file:/D:/KRAYA/1ercycleing/pidev/khademni-mobile/src/com/mycompany/gui/ProfileSettingsForm.java</file>
             <file>file:/D:/KRAYA/1ercycleing/pidev/khademni-mobile/src/com/mycompany/entities/Ligne_commande.java</file>
             <file>file:/D:/KRAYA/1ercycleing/pidev/khademni-mobile/src/com/mycompany/gui/ModifierEvenement.java</file>
             <file>file:/D:/KRAYA/1ercycleing/pidev/khademni-mobile/src/com/mycompany/entities/Candidature.java</file>

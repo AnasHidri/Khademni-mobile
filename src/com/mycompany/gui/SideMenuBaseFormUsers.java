@@ -55,7 +55,7 @@ String prenomCurrent=User.getCurrent_User().getPrenom();
         getToolbar().addMaterialCommandToSideMenu("  Formations", FontImage.MATERIAL_EXIT_TO_APP,  e -> new ListUsers(res).show());
         getToolbar().addMaterialCommandToSideMenu("  Offres", FontImage.MATERIAL_TRENDING_UP,  e -> new ListOffreForm(this).show());
         getToolbar().addMaterialCommandToSideMenu("  Evenements", FontImage.MATERIAL_ACCESS_TIME,  e -> new ListeEvenement(res).show());
-           getToolbar().addMaterialCommandToSideMenu("  Panier", FontImage.MATERIAL_ACCESS_TIME,  e -> new StatistiquePanier(res).show());
+           getToolbar().addMaterialCommandToSideMenu("  Panier", FontImage.MATERIAL_ACCESS_TIME,  e -> new MonPanier(res).show());
         getToolbar().addMaterialCommandToSideMenu("  Logout", FontImage.MATERIAL_EXIT_TO_APP,  e -> new LoginForm(res).show());
 
     }

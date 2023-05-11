@@ -10,6 +10,8 @@ import com.codename1.io.JSONParser;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.l10n.SimpleDateFormat;
+import com.codename1.ui.Dialog;
+import com.codename1.ui.Label;
 
 import com.codename1.ui.events.ActionListener;
 import com.mycompany.entities.Evenement;
@@ -189,6 +191,160 @@ for (Map<String, Object> obj : listOfMaps) {
     });
     NetworkManager.getInstance().addToQueue(req);
 }
+ 
+public void getTopEventsByLikes(Label label) {
+   String url = Statics.BASE_URL + "/evenementJson/topVoteJson";
+
+   req.setUrl(url);
+   
+   req.addResponseListener((e) -> {
+       try {
+           if (req.getResponseCode() == 200) {
+               // La requête a réussi, analysez la réponse JSON
+               JSONParser parser = new JSONParser();
+               Map<String, Object> response = parser.parseJSON(new InputStreamReader(new ByteArrayInputStream(req.getResponseData()), "UTF-8"));
+
+               // Vérifiez que la réponse contient une clé 'events'
+               if (response.containsKey("events")) {
+                   List<Map<String, Object>> events = (List<Map<String, Object>>) response.get("events");
+
+                   // Mettre à jour le label avec les événements
+                   String text = "";
+                   if (events != null && !events.isEmpty()) {
+                       for (Map<String, Object> event : events) {
+                           String titre = (String) event.get("title");
+                           String likes = String.valueOf(event.get("likes"));
+                           text += titre + " - " + likes + " likes\n";
+                           System.out.println("sayabna:"+text);
+                       }
+                   } else {
+                       text = "Aucun événement trouvé.";
+                   }
+                   label.setText(text);
+               } else {
+                   // La réponse ne contient pas la clé 'events'
+                   Dialog.show("Erreur", "La réponse est invalide", "OK", null);
+               }
+           } else {
+               // La requête a échoué, affichez un message d'erreur
+               Dialog.show("Erreur", "La requête a échoué", "OK", null);
+           }
+       } catch(Exception ex) {
+           ex.printStackTrace();
+       }
+   });
+
+   NetworkManager.getInstance().addToQueueAndWait(req);
+}
+
+public ArrayList<Evenement> affichageEvenementAd() {
+    ArrayList<Evenement> result = new ArrayList<>();
+    String url = Statics.BASE_URL + "/evenementJson/allAd";
+    req.setUrl(url);
+
+    req.addResponseListener(new ActionListener<NetworkEvent>() {
+        @Override
+        public void actionPerformed(NetworkEvent evt) {
+            JSONParser jsonp = new JSONParser();
+            try {
+                Map<String, Object> mapEvenements = jsonp.parseJSON(
+                        new CharArrayReader(new String(req.getResponseData()).toCharArray()));
+
+                List<Map<String, Object>> listOfMaps = (List<Map<String, Object>>) mapEvenements.get("root");
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+for (Map<String, Object> obj : listOfMaps) {
+    Evenement ev = new Evenement();
+    float id_evenement = Float.parseFloat(obj.get("id_evenement").toString());
+    String titre = (String) obj.get("titre");
+    String description = (String) obj.get("description");
+    String nomSociete = (String) obj.get("nom_societe");
+    String lieu = (String) obj.get("lieu");
+
+    // récupérer les dates sous forme de chaînes de caractères
+    String dateDebutStr = (String) obj.get("date_debut");
+    String dateFinStr = (String) obj.get("date_fin");
+
+    // parser les dates en objets Date
+    Date dateDebut = dateFormat.parse(dateDebutStr);
+    Date dateFin = dateFormat.parse(dateFinStr);
+
+    ev.setId_evenement((int) id_evenement);
+    ev.setDate_debut(dateDebut);
+    ev.setDate_fin(dateFin);
+    ev.setTitre(titre);
+    ev.setDescription(description);
+    ev.setNom_societe(nomSociete);
+    ev.setLieu(lieu);
+    result.add(ev);
+}
+
+            } catch(Exception ex) {
+                   
+                    ex.printStackTrace();
+                }
+        }
+    });
+
+    NetworkManager.getInstance().addToQueueAndWait(req);//execution  request
+    return result;
+}
+public ArrayList<Evenement> affichageEvenementEmp() {
+    ArrayList<Evenement> result = new ArrayList<>();
+    User u = User.getCurrent_User();
+    String url = Statics.BASE_URL + "/evenementJson/allEmp/"+u.getIdUser();
+    req.setUrl(url);
+
+    req.addResponseListener(new ActionListener<NetworkEvent>() {
+        @Override
+        public void actionPerformed(NetworkEvent evt) {
+            JSONParser jsonp = new JSONParser();
+            try {
+                Map<String, Object> mapEvenements = jsonp.parseJSON(
+                        new CharArrayReader(new String(req.getResponseData()).toCharArray()));
+
+                List<Map<String, Object>> listOfMaps = (List<Map<String, Object>>) mapEvenements.get("root");
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+for (Map<String, Object> obj : listOfMaps) {
+    Evenement ev = new Evenement();
+    float id_evenement = Float.parseFloat(obj.get("id_evenement").toString());
+    String titre = (String) obj.get("titre");
+    String description = (String) obj.get("description");
+    String nomSociete = (String) obj.get("nom_societe");
+    String lieu = (String) obj.get("lieu");
+
+    // récupérer les dates sous forme de chaînes de caractères
+    String dateDebutStr = (String) obj.get("date_debut");
+    String dateFinStr = (String) obj.get("date_fin");
+
+    // parser les dates en objets Date
+    Date dateDebut = dateFormat.parse(dateDebutStr);
+    Date dateFin = dateFormat.parse(dateFinStr);
+
+    ev.setId_evenement((int) id_evenement);
+    ev.setDate_debut(dateDebut);
+    ev.setDate_fin(dateFin);
+    ev.setTitre(titre);
+    ev.setDescription(description);
+    ev.setNom_societe(nomSociete);
+    ev.setLieu(lieu);
+    result.add(ev);
+}
+
+            } catch(Exception ex) {
+                   
+                    ex.printStackTrace();
+                }
+        }
+    });
+
+    NetworkManager.getInstance().addToQueueAndWait(req);//execution  request
+    return result;
+}
+
 
  
 }

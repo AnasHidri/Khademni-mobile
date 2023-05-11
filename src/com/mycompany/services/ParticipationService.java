@@ -9,6 +9,8 @@ import com.codename1.io.ConnectionRequest;
 import com.codename1.io.JSONParser;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
+import com.codename1.ui.Dialog;
+import com.codename1.ui.Label;
 import com.codename1.ui.events.ActionListener;
 import static com.mycompany.services.EvenementService.resultOk;
 import com.mycompany.statics.Statics;
@@ -51,39 +53,33 @@ public class ParticipationService {
         
     }
      
-     public void ajoutParticipation(int id_evenement) {
-          User u = User.getCurrent_User();
-    String url = Statics.BASE_URL + "/participationJson/new/" + id_evenement+"/iduser/"+u.getIdUser();
+    public void ajoutParticipation(int id_evenement) {
+    String url = Statics.BASE_URL + "/participationJson/new/" + id_evenement;
     req.setUrl(url);
     req.addResponseListener((e) -> {
         String str = new String(req.getResponseData());
         System.out.println("data == " + str);
+         
+            Dialog.show("Confirmation", "Participation ajoutée avec succès", "OK", null);
+       
+       
     });
     NetworkManager.getInstance().addToQueueAndWait(req);
 }
      
-    public boolean annulerParticipation(int id_evenement) {
-        User u = User.getCurrent_User();
-    String url = Statics.BASE_URL + "/participationJson/delete/" + id_evenement+"/iduser/"+u.getIdUser();
+    public void annulerParticipation(int id_evenement) {
+    String url = Statics.BASE_URL + "/participationJson/delete/" + id_evenement;
     req.setUrl(url);
-    boolean[] resultOk = new boolean[1];
     req.addResponseListener(e -> {
-        JSONParser parser = new JSONParser();
         try {
+            JSONParser parser = new JSONParser();
             Map<String, Object> resultMap = parser.parseJSON(new InputStreamReader(new ByteArrayInputStream(req.getResponseData()), "UTF-8"));
-            String message = (String) resultMap.get("message");
-            if (message.contains("Participation deleted successfully")) {
-                resultOk[0] = true;
-            } else {
-                resultOk[0] = false;
-            }
-        }  catch(Exception ex) {
-                    
-                    ex.printStackTrace();
+             Dialog.show("Confirmation", "Votre Participation a ete annulee", "OK", null);
+        } catch(Exception ex) {
+            ex.printStackTrace();
         }
     });
     NetworkManager.getInstance().addToQueueAndWait(req);
-    return resultOk[0];
 }
     
    public ArrayList<Evenement> mesParticipations(int id_user) {
@@ -129,6 +125,85 @@ public class ParticipationService {
     return result;
 }
 
+  public void like(int id_evenement) {
+        User u = User.getCurrent_User();
+    String url = Statics.BASE_URL + "/participationJson/" + id_evenement + "/like/"+u.getIdUser();
+   
+    req.setUrl(url);
+
+    req.addResponseListener((e) -> {
+        try {
+            if (req.getResponseCode() == 200) {
+                // La requête a réussi, analysez la réponse JSON
+                JSONParser parser = new JSONParser();
+                Map<String, Object> response = parser.parseJSON(new InputStreamReader(new ByteArrayInputStream(req.getResponseData()), "UTF-8"));
+                Dialog.show("Confirmation", "Vous avez aimé cet evenement", "OK", null);
+            } else {
+                // La requête a échoué, affichez un message d'erreur
+                Dialog.show("Erreur", "La requête a échoué", "OK", null);
+            }
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        }
+    });
+
+    NetworkManager.getInstance().addToQueueAndWait(req);
+}
+ 
+  public void Dislike(int id_evenement) {
+         User u = User.getCurrent_User();
+    String url = Statics.BASE_URL + "/participationJson/" + id_evenement + "/dislike/"+u.getIdUser();
+   
+    req.setUrl(url);
+
+    req.addResponseListener((e) -> {
+        try {
+            if (req.getResponseCode() == 200) {
+                // La requête a réussi, analysez la réponse JSON
+                JSONParser parser = new JSONParser();
+                Map<String, Object> response = parser.parseJSON(new InputStreamReader(new ByteArrayInputStream(req.getResponseData()), "UTF-8"));
+                Dialog.show("Confirmation", "Vous avez vote contre cet evenement", "OK", null);
+            } else {
+                // La requête a échoué, affichez un message d'erreur
+                Dialog.show("Erreur", "La requête a échoué", "OK", null);
+            }
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        }
+    });
+
+    NetworkManager.getInstance().addToQueueAndWait(req);
+}
+
+public void getLikesDislikes(int id_evenement, Label likesLabel, Label dislikesLabel) {
+    String url = Statics.BASE_URL + "/participationJson/evenement/" + id_evenement;
+
+    req.setUrl(url);
+
+    req.addResponseListener((e) -> {
+        try {
+            if (req.getResponseCode() == 200) {
+                // La requête a réussi, analysez la réponse JSON
+
+                JSONParser parser = new JSONParser();
+                Map<String, Object> response = parser.parseJSON(new InputStreamReader(new ByteArrayInputStream(req.getResponseData()), "UTF-8"));
+                int likes = Integer.parseInt((String) response.get("likes"));
+                int dislikes = Integer.parseInt((String) response.get("dislikes"));
+
+                // Mettre à jour les labels
+                likesLabel.setText("Likes : " + likes);
+                dislikesLabel.setText("Dislikes : " + dislikes);
+            } else {
+                // La requête a échoué, affichez un message d'erreur
+                Dialog.show("Erreur", "La requête a échoué", "OK", null);
+            }
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        }
+    });
+
+    NetworkManager.getInstance().addToQueueAndWait(req);
+} 
 
     
 }
